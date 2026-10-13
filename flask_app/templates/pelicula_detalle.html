@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block titulo %}Cinepedia - {{ pelicula.titulo }}{% endblock %}
+{% block contenido %}
+<div class="encabezado">
+    <h1 class="titulo-vacio"></h1>
+    <div class="enlaces-superiores">
+        <a href="{{ url_for('panel_peliculas') }}">Inicio</a>
+        <a href="{{ url_for('salir') }}">Cerrar Sesión</a>
+    </div>
+</div>
+<div class="cuadro-detalle">
+    <h1>{{ pelicula.titulo }}</h1>
+    <p><strong>Publicado por:</strong> {{ pelicula.autor_nombre }} {{ pelicula.autor_apellido }}</p>
+    <p><strong>Director:</strong> {{ pelicula.director }}</p>
+    <p><strong>Fecha:</strong> {{ pelicula.fecha_estreno.strftime('%Y-%m-%d') if pelicula.fecha_estreno.strftime is defined else pelicula.fecha_estreno }}</p>
+    <p class="sinopsis"><strong>Sinopsis:</strong> {{ pelicula.sinopsis }}</p>
+</div>
+<div class="zona-comentarios">
+    {% if pelicula.usuario_id == session['id_usuario'] %}
+      <p class="aviso">No puedes comentar tu propia película.</p>
+    {% else %}
+      <form method="post" action="{{ url_for('publicar_comentario', pelicula_id=pelicula.id_pelicula) }}" class="form-comentar">
+        <input type="text" name="contenido" placeholder="Escribe un comentario..." aria-label="Escribe un comentario" required>
+        <button type="submit">Enviar</button>
+      </form>
+    {% endif %}
+    {% for c in comentarios %}
+      <div class="comentario">
+        <div><span class="autor">{{ c.autor_nombre }} {{ c.autor_apellido }}</span><span class="fecha"> - {{ c.created_at.strftime('%d/%m/%Y') if c.created_at.strftime is defined else c.created_at }}</span></div>
+        <p class="texto">{{ c.contenido }}</p>
+        {% if c.usuario_id == session['id_usuario'] %}
+          <form method="post" action="{{ url_for('remover_comentario', id=c.id_comentario) }}" class="form-borrar-comentario" onsubmit="return confirm('¿Borrar este comentario?');">
+            <button type="submit" class="boton-link">Borrar</button>
+          </form>
+        {% endif %}
+      </div>
+    {% else %}
+      <p>No hay comentarios todavía.</p>
+    {% endfor %}
+</div>
+{% endblock %}

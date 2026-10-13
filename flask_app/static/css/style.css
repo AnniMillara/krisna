@@ -1,0 +1,88 @@
+* { box-sizing: border-box; }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000;
+    background: #fff;
+    margin: 0;
+    padding: 24px 32px;
+    line-height: 1.4;
+}
+h1, h2, h3 { color: #000; margin: 0 0 12px; }
+a { color: #0645ad; text-decoration: underline; }
+a:hover { color: #0b0080; }
+.encabezado {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.saludo, .titulo-pagina { font-size: 24px; font-weight: bold; margin: 0; }
+.enlaces-superiores { font-size: 12px; white-space: nowrap; }
+.enlaces-superiores a { margin-left: 14px; }
+.mensaje { padding: 8px 12px; border: 1px solid; margin-bottom: 12px; font-size: 13px; }
+.mensaje-error { background: #fff0f0; border-color: #c66; color: #a00; }
+.mensaje-success { background: #effbef; border-color: #8c8; color: #060; }
+.tabla-contenedor { width: 100%; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+th, td { border: 1px solid #333; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: #ddd; font-weight: bold; }
+tbody tr:nth-child(even) { background: #f0f0f0; }
+td a { margin-right: 8px; }
+.form-inline { display: inline; }
+.boton-link { background: none; border: none; padding: 0; color: #0645ad; text-decoration: underline; cursor: pointer; font: inherit; }
+.boton-link:hover { color: #0b0080; }
+.formulario-pelicula {
+    display: grid; grid-template-columns: 170px minmax(0, 1fr);
+    gap: 14px 18px; max-width: 720px; margin-top: 12px;
+}
+.formulario-pelicula label { padding-top: 6px; }
+.formulario-pelicula input[type="text"], .formulario-pelicula input[type="date"],
+.formulario-pelicula textarea {
+    width: 100%; padding: 6px 8px; border: 1px solid #333;
+    background: #fff; font: inherit; color: #000; border-radius: 0;
+}
+.formulario-pelicula textarea { min-height: 160px; resize: vertical; font-family: inherit; }
+.guardar-alineado { text-align: right; }
+.boton-guardar, button {
+    padding: 6px 14px; border: 1px solid #333; background: #f0f0f0;
+    color: #000; cursor: pointer; font: inherit; border-radius: 0;
+}
+.boton-guardar:hover, button:hover { background: #e0e0e0; }
+.cuadro-detalle { border: 1px solid #333; padding: 14px; max-width: 720px; margin-bottom: 28px; }
+.cuadro-detalle h1 { font-size: 22px; margin: 0 0 14px; }
+.cuadro-detalle p { margin: 6px 0; }
+.sinopsis { white-space: pre-wrap; overflow-wrap: anywhere; }
+.zona-comentarios {
+    border: 1px solid #333; background: #999; padding: 14px;
+    width: min(100%, 720px); height: 300px; overflow-y: auto;
+}
+.zona-comentarios .form-comentar { display: flex; gap: 8px; margin-bottom: 14px; }
+.zona-comentarios input[type="text"] {
+    flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #333;
+    background: #fff; font: inherit;
+}
+.zona-comentarios .form-comentar button { flex-shrink: 0; }
+.aviso { background: #fff; border: 1px solid #333; padding: 8px; margin: 0 0 14px; }
+.comentario { padding: 7px 1px; margin-bottom: 6px; border-bottom: 1px solid #777; overflow-wrap: anywhere; }
+.comentario .autor { font-weight: bold; }
+.comentario .fecha { color: #333; font-size: 12px; }
+.comentario .texto { margin: 6px 0; white-space: pre-wrap; }
+.form-borrar-comentario { display: inline; }
+.login-contenedor {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    max-width: 880px; margin: 30px auto;
+}
+.login-contenedor h2 { margin-bottom: 14px; }
+.login-form .campo { margin-bottom: 10px; }
+.login-form label { display: block; margin-bottom: 4px; }
+.login-form input {
+    width: 100%; padding: 6px 8px; border: 1px solid #333;
+    background: #fff; font: inherit; border-radius: 0;
+}
+@media (max-width: 600px) {
+    body { padding: 16px; }
+    .formulario-pelicula { grid-template-columns: 1fr; gap: 6px; }
+    .formulario-pelicula label { padding-top: 8px; }
+    .formulario-pelicula .guardar-alineado { grid-column: 1; }
+    .login-contenedor { grid-template-columns: 1fr; gap: 30px; }
+    .saludo, .titulo-pagina { font-size: 21px; }
+}

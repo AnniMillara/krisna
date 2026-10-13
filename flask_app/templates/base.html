@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Cinepedia{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+          <div class="mensaje mensaje-{{ categoria }}" role="alert">{{ mensaje }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block contenido %}{% endblock %}
+</body>
+</html>

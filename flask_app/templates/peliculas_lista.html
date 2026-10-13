@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Cinepedia - Películas{% endblock %}
+{% block contenido %}
+<div class="encabezado">
+    <h1 class="saludo">Bienvenido, {{ session['nombre'] }}</h1>
+    <div class="enlaces-superiores">
+        <a href="{{ url_for('formulario_nueva') }}">Nueva Peli</a>
+        <a href="{{ url_for('salir') }}">Cerrar Sesión</a>
+    </div>
+</div>
+{% if peliculas %}
+<div class="tabla-contenedor">
+<table>
+    <thead><tr><th>Película</th><th>Director</th><th>Fecha de Estreno</th><th>Acciones</th></tr></thead>
+    <tbody>
+    {% for p in peliculas %}
+      <tr>
+        <td>{{ p.titulo }}</td>
+        <td>{{ p.director }}</td>
+        <td>{{ p.fecha_estreno.strftime('%Y-%m-%d') if p.fecha_estreno.strftime is defined else p.fecha_estreno }}</td>
+        <td>
+          <a href="{{ url_for('ver_pelicula', id=p.id_pelicula) }}">Ver</a>
+          {% if p.usuario_id == session['id_usuario'] %}
+            <a href="{{ url_for('formulario_editar', id=p.id_pelicula) }}">Editar</a>
+            <form method="post" action="{{ url_for('remover_pelicula', id=p.id_pelicula) }}" class="form-inline" onsubmit="return confirm('¿Borrar esta película?');">
+              <button type="submit" class="boton-link">Borrar</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<p>No hay películas registradas todavía.</p>
+{% endif %}
+{% endblock %}

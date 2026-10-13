@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Cinepedia - {{ 'Editar Película' if modo == 'editar' else 'Nueva Película' }}{% endblock %}
+{% block contenido %}
+<div class="encabezado">
+    <h1 class="titulo-pagina">{{ 'Editar Película' if modo == 'editar' else 'Nueva Película' }}</h1>
+    <div class="enlaces-superiores">
+        <a href="{{ url_for('panel_peliculas') }}">Inicio</a>
+        <a href="{{ url_for('salir') }}">Cerrar Sesión</a>
+    </div>
+</div>
+<form method="post" class="formulario-pelicula" action="{{ url_for('guardar_cambios', id=pelicula.id_pelicula) if modo == 'editar' else url_for('registrar_pelicula') }}">
+    <label for="titulo">Nombre de Peli:</label>
+    <input type="text" id="titulo" name="titulo" required minlength="3" value="{{ pelicula.titulo if pelicula else '' }}">
+    <label for="director">Director:</label>
+    <input type="text" id="director" name="director" required minlength="3" value="{{ pelicula.director if pelicula else '' }}">
+    <label for="fecha_estreno">Fecha Estreno:</label>
+    <input type="date" id="fecha_estreno" name="fecha_estreno" required value="{% if pelicula and pelicula.fecha_estreno %}{{ pelicula.fecha_estreno if pelicula.fecha_estreno is string else pelicula.fecha_estreno.strftime('%Y-%m-%d') }}{% endif %}">
+    <label for="sinopsis">Sinopsis:</label>
+    <textarea id="sinopsis" name="sinopsis" required minlength="3">{{ pelicula.sinopsis if pelicula else '' }}</textarea>
+    <div></div>
+    <div class="guardar-alineado"><button type="submit" class="boton-guardar">Guardar Película</button></div>
+</form>
+{% endblock %}
